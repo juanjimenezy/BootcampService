@@ -4,8 +4,10 @@ import com.pragma.reactive.bootcamp.bootcampservice.application.dto.request.Boot
 import com.pragma.reactive.bootcamp.bootcampservice.application.dto.response.BootcampResponseDTO;
 import com.pragma.reactive.bootcamp.bootcampservice.application.mapper.IBootcampRequestMapper;
 import com.pragma.reactive.bootcamp.bootcampservice.application.mapper.IBootcampResponseMapper;
+import com.pragma.reactive.bootcamp.bootcampservice.application.mapper.ICapabilityResponseMapper;
 import com.pragma.reactive.bootcamp.bootcampservice.domain.api.IBootcampCapabilitiesServicePort;
 import com.pragma.reactive.bootcamp.bootcampservice.domain.api.IBootcampServicePort;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.api.ICapabilityServicePort;
 import com.pragma.reactive.bootcamp.bootcampservice.domain.model.BootcampCapabilitiesObject;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -17,14 +19,18 @@ import java.util.List;
 public class BootcampHandler implements IBootcampHandler {
     private final IBootcampServicePort bootcampServicePort;
     private final IBootcampCapabilitiesServicePort bootcampCapabilitiesServicePort;
+    private final ICapabilityServicePort capabilityServicePort;
     private final IBootcampRequestMapper bootcampRequestMapper;
     private final IBootcampResponseMapper bootcampResponseMapper;
+    private final ICapabilityResponseMapper capabilityResponseMapper;
 
-    public BootcampHandler(IBootcampServicePort bootcampServicePort, IBootcampCapabilitiesServicePort bootcampCapabilitiesServicePort, IBootcampRequestMapper bootcampRequestMapper, IBootcampResponseMapper bootcampResponseMapper ) {
+    public BootcampHandler(IBootcampServicePort bootcampServicePort, IBootcampCapabilitiesServicePort bootcampCapabilitiesServicePort, ICapabilityServicePort capabilityServicePort, IBootcampRequestMapper bootcampRequestMapper, IBootcampResponseMapper bootcampResponseMapper, ICapabilityResponseMapper capabilityResponseMapper) {
         this.bootcampServicePort = bootcampServicePort;
         this.bootcampCapabilitiesServicePort = bootcampCapabilitiesServicePort;
+        this.capabilityServicePort = capabilityServicePort;
         this.bootcampRequestMapper = bootcampRequestMapper;
         this.bootcampResponseMapper = bootcampResponseMapper;
+        this.capabilityResponseMapper = capabilityResponseMapper;
     }
 
     @Override
@@ -38,9 +44,17 @@ public class BootcampHandler implements IBootcampHandler {
     }
 
     @Override
-    public Flux<BootcampResponseDTO> getAllBootcamps() {
-        return bootcampServicePort.findAll()
-                .map(bootcampResponseMapper::toDTO);
+    public Flux<BootcampResponseDTO> getAllBootcamps(int page, int size, boolean asc) {
+        return bootcampServicePort.findAll(page,size,asc)
+                .flatMap(bootcamp -> bootcampCapabilitiesServicePort.findByBootcampId(bootcamp.getId())
+                        .flatMap(botCap -> capabilityServicePort.getCapability(botCap.getCapabilityId()))
+                        .collectList()
+                        .map(capList -> {
+                            BootcampResponseDTO dto = bootcampResponseMapper.toDTO(bootcamp);
+                            dto.setBootcampCapabilities(capabilityResponseMapper.toDTO(capList));
+                            return dto;
+                        })
+                );
     }
 
     @Override

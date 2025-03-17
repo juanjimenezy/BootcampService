@@ -26,7 +26,13 @@ public class BootcampUseCase implements IBootcampServicePort {
     }
 
     @Override
-    public Flux<BootcampObject> findAll() {
-        return bootcampPersistencePort.findAll();
+    public Flux<BootcampObject> findAll(int page, int size, boolean asc) {
+        int offset = page*size;
+
+        if (asc){
+            return bootcampPersistencePort.findAllPageAsc(size,offset);
+        }
+
+        return bootcampPersistencePort.findAllPageDesc(size,offset);
     }
 }

@@ -8,4 +8,6 @@ public interface IBootcampPersistencePort {
     Mono<BootcampObject> save(BootcampObject bootcampObject);
     Mono<BootcampObject> findById(Long id);
     Flux<BootcampObject> findAll();
+    Flux<BootcampObject> findAllPageAsc(int limit, int offset);
+    Flux<BootcampObject> findAllPageDesc(int limit, int offset);
 }

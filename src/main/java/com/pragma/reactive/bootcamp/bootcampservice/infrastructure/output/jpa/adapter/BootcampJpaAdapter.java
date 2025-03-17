@@ -31,4 +31,16 @@ public class BootcampJpaAdapter implements IBootcampPersistencePort {
         return bootcampRepository.findAll()
                 .map(bootcampEntityMapper::toObject);
     }
+
+    @Override
+    public Flux<BootcampObject> findAllPageAsc(int limit, int offset) {
+        return bootcampRepository.findAllPageAsc(limit,offset)
+                .map(bootcampEntityMapper::toObject);
+    }
+
+    @Override
+    public Flux<BootcampObject> findAllPageDesc(int limit, int offset) {
+        return bootcampRepository.findAllPageDesc(limit,offset)
+                .map(bootcampEntityMapper::toObject);
+    }
 }

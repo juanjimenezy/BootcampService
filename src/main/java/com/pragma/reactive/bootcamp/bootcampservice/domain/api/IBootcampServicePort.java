@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 public interface IBootcampServicePort {
     Mono<BootcampObject> save(BootcampObject bootcampObject);
     Mono<BootcampObject> findById(Long id);
-    Flux<BootcampObject> findAll();
+    Flux<BootcampObject> findAll(int page, int size, boolean asc);
 }

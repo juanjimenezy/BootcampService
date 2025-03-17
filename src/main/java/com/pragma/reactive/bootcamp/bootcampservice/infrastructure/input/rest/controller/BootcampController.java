@@ -1,6 +1,7 @@
 package com.pragma.reactive.bootcamp.bootcampservice.infrastructure.input.rest.controller;
 
 import com.pragma.reactive.bootcamp.bootcampservice.application.dto.request.BootcampRequestDTO;
+import com.pragma.reactive.bootcamp.bootcampservice.application.dto.request.PagueableRequestDTO;
 import com.pragma.reactive.bootcamp.bootcampservice.application.dto.response.BootcampResponseDTO;
 import com.pragma.reactive.bootcamp.bootcampservice.application.handler.IBootcampHandler;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,8 @@ public class BootcampController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Flux<BootcampResponseDTO> findAll() {
-        return bootcampHandler.getAllBootcamps();
+    public Flux<BootcampResponseDTO> findAll(@RequestBody PagueableRequestDTO pageable) {
+        return bootcampHandler.getAllBootcamps(pageable.getPage(),pageable.getSize(),pageable.isAsc());
     }
 
     @GetMapping("/{id}")

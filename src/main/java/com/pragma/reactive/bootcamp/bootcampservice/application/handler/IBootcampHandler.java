@@ -9,6 +9,6 @@ import reactor.core.publisher.Mono;
 @Service
 public interface IBootcampHandler {
     Mono<BootcampResponseDTO> createBootcamp(BootcampRequestDTO bootcampRequestDTO);
-    Flux<BootcampResponseDTO> getAllBootcamps();
+    Flux<BootcampResponseDTO> getAllBootcamps(int page, int size, boolean asc);
     Mono<BootcampResponseDTO> getBootcampById(long id);
 }
