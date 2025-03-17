@@ -1,4 +1,4 @@
-package com.pragma.reactive.bootcamp.bootcampservice.domine.model;
+package com.pragma.reactive.bootcamp.bootcampservice.domain.model;
 
 public class BootcampCapabilitiesObject {
     private Long bootcampId;

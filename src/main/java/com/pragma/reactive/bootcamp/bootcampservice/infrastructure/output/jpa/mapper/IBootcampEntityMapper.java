@@ -1,6 +1,6 @@
 package com.pragma.reactive.bootcamp.bootcampservice.infrastructure.output.jpa.mapper;
 
-import com.pragma.reactive.bootcamp.bootcampservice.domine.model.BootcampObject;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.model.BootcampObject;
 import com.pragma.reactive.bootcamp.bootcampservice.infrastructure.output.jpa.entity.BootcampEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

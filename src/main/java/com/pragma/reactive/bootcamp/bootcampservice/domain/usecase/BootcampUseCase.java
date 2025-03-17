@@ -1,8 +1,8 @@
-package com.pragma.reactive.bootcamp.bootcampservice.domine.usecase;
+package com.pragma.reactive.bootcamp.bootcampservice.domain.usecase;
 
-import com.pragma.reactive.bootcamp.bootcampservice.domine.api.IBootcampServicePort;
-import com.pragma.reactive.bootcamp.bootcampservice.domine.model.BootcampObject;
-import com.pragma.reactive.bootcamp.bootcampservice.domine.spi.IBootcampPersistencePort;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.api.IBootcampServicePort;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.model.BootcampObject;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.spi.IBootcampPersistencePort;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

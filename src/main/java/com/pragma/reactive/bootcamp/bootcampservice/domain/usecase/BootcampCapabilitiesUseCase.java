@@ -1,10 +1,11 @@
-package com.pragma.reactive.bootcamp.bootcampservice.domine.usecase;
+package com.pragma.reactive.bootcamp.bootcampservice.domain.usecase;
 
-import com.pragma.reactive.bootcamp.bootcampservice.domine.api.IBootcampCapabilitiesServicePort;
-import com.pragma.reactive.bootcamp.bootcampservice.domine.model.BootcampCapabilitiesObject;
-import com.pragma.reactive.bootcamp.bootcampservice.domine.spi.IBootcampCapabilitiesPersistencePort;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.api.IBootcampCapabilitiesServicePort;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.model.BootcampCapabilitiesObject;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.spi.IBootcampCapabilitiesPersistencePort;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 public class BootcampCapabilitiesUseCase implements IBootcampCapabilitiesServicePort {
 
@@ -15,8 +16,8 @@ public class BootcampCapabilitiesUseCase implements IBootcampCapabilitiesService
     }
 
     @Override
-    public Mono<BootcampCapabilitiesObject> save(BootcampCapabilitiesObject bootcampCapabilitiesObject) {
-        return bootcampCapabilitiesPersistencePort.save(bootcampCapabilitiesObject);
+    public Flux<BootcampCapabilitiesObject> saveAll(List<BootcampCapabilitiesObject> bootcampCapabilitiesObject) {
+        return bootcampCapabilitiesPersistencePort.saveAll(bootcampCapabilitiesObject);
     }
 
     @Override

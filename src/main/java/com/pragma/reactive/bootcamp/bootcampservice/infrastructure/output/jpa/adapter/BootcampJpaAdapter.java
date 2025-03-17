@@ -1,7 +1,7 @@
 package com.pragma.reactive.bootcamp.bootcampservice.infrastructure.output.jpa.adapter;
 
-import com.pragma.reactive.bootcamp.bootcampservice.domine.model.BootcampObject;
-import com.pragma.reactive.bootcamp.bootcampservice.domine.spi.IBootcampPersistencePort;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.model.BootcampObject;
+import com.pragma.reactive.bootcamp.bootcampservice.domain.spi.IBootcampPersistencePort;
 import com.pragma.reactive.bootcamp.bootcampservice.infrastructure.output.jpa.mapper.IBootcampEntityMapper;
 import com.pragma.reactive.bootcamp.bootcampservice.infrastructure.output.jpa.repository.IBootcampRepository;
 import lombok.RequiredArgsConstructor;
