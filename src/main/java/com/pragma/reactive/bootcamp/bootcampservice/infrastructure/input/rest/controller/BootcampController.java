@@ -1,0 +1,37 @@
+package com.pragma.reactive.bootcamp.bootcampservice.infrastructure.input.rest.controller;
+
+import com.pragma.reactive.bootcamp.bootcampservice.application.dto.request.BootcampRequestDTO;
+import com.pragma.reactive.bootcamp.bootcampservice.application.dto.response.BootcampResponseDTO;
+import com.pragma.reactive.bootcamp.bootcampservice.application.handler.IBootcampHandler;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@RestController
+@RequestMapping("/api/bootcamp")
+@RequiredArgsConstructor
+public class BootcampController {
+
+    private final IBootcampHandler bootcampHandler;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<BootcampResponseDTO> save(@RequestBody BootcampRequestDTO bootcampRequestDTO) {
+        return bootcampHandler.createBootcamp(bootcampRequestDTO);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Flux<BootcampResponseDTO> findAll() {
+        return bootcampHandler.getAllBootcamps();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<BootcampResponseDTO> findById(@PathVariable Long id) {
+        return bootcampHandler.getBootcampById(id);
+    }
+
+}
