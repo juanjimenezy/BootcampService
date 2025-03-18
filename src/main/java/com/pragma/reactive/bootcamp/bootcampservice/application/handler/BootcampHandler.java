@@ -60,6 +60,14 @@ public class BootcampHandler implements IBootcampHandler {
     @Override
     public Mono<BootcampResponseDTO> getBootcampById(long id) {
         return bootcampServicePort.findById(id)
-                .map(bootcampResponseMapper::toDTO);
+                .flatMap(bootcamp -> bootcampCapabilitiesServicePort.findByBootcampId(bootcamp.getId())
+                        .flatMap(botCap -> capabilityServicePort.getCapability(botCap.getCapabilityId()))
+                        .collectList()
+                        .map(capList -> {
+                            BootcampResponseDTO dto = bootcampResponseMapper.toDTO(bootcamp);
+                            dto.setBootcampCapabilities(capabilityResponseMapper.toDTO(capList));
+                            return dto;
+                        })
+                );
     }
 }
