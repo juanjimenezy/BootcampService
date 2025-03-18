@@ -4,6 +4,7 @@ import com.pragma.reactive.bootcamp.bootcampservice.application.dto.request.Boot
 import com.pragma.reactive.bootcamp.bootcampservice.application.dto.request.PagueableRequestDTO;
 import com.pragma.reactive.bootcamp.bootcampservice.application.dto.response.BootcampResponseDTO;
 import com.pragma.reactive.bootcamp.bootcampservice.application.handler.IBootcampHandler;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,13 @@ public class BootcampController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<BootcampResponseDTO> save(@RequestBody BootcampRequestDTO bootcampRequestDTO) {
+    public Mono<BootcampResponseDTO> save(@Valid @RequestBody BootcampRequestDTO bootcampRequestDTO) {
         return bootcampHandler.createBootcamp(bootcampRequestDTO);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Flux<BootcampResponseDTO> findAll(@RequestBody PagueableRequestDTO pageable) {
+    public Flux<BootcampResponseDTO> findAll(@Valid @RequestBody PagueableRequestDTO pageable) {
         return bootcampHandler.getAllBootcamps(pageable.getPage(),pageable.getSize(),pageable.isAsc());
     }
 

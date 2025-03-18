@@ -8,7 +8,6 @@ import reactor.core.publisher.Flux;
 import java.util.List;
 
 public class BootcampCapabilitiesUseCase implements IBootcampCapabilitiesServicePort {
-
     private final IBootcampCapabilitiesPersistencePort bootcampCapabilitiesPersistencePort;
 
     public BootcampCapabilitiesUseCase(IBootcampCapabilitiesPersistencePort bootcampCapabilitiesPersistencePort) {

@@ -1,18 +1,22 @@
 server:
-    port: 8091
+  port: 8091
 
 spring:
-    application:
-        name: BootcampService
+  application:
+    name: BootcampService
 
-    r2dbc:
-        url: r2dbc:mysql://localhost:3306/bootcamps-db
-        username: root
-        password: root
-        pool:
-            enabled: true
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/bootcamps-db
+    username: root
+    password: root
+    pool:
+      enabled: true
 
-    sql:
-        init:
-            mode: always
-            platform: mysql
+  sql:
+    init:
+      mode: always
+      platform: mysql
+
+capability:
+  api:
+    url: http://localhost:8090
